@@ -3,18 +3,22 @@ const initialState = {
     error: null,
 }
 const FAILED = "FAILED";
-const STORE_TOKEN = "STORE_TOKEN";
+const LOGIN = "STORE_TOKEN";
+const LOGOUT = "REMOVE_TOKEN";
 
 export default function (state = initialState, action){
     switch (action.type) {
-        case STORE_TOKEN: {
+        case LOGIN: {
             return {...state, currentUser: action.data}
         }
         case FAILED: {
             return {...state, error: action.data}
         }
+        case LOGOUT: {
+            return {...state, currentUser: null}
+        }
     }
-    return state
+    return state;
 }
 
 export function login(username, password){
@@ -24,6 +28,18 @@ export function login(username, password){
         if (!res.ok){
             return dispatch({type: FAILED, data: data.message});
         }
-        dispatch({type: STORE_TOKEN, data});
+        dispatch({type: LOGIN, data});
+    }
+}
+
+export function logout(){
+    return async (dispatch, getState)=>{
+        let currentUser = getState().currentUser;
+        const res = await fetch(`http://localhost:8080/logout?currentUser=${currentUser}`)
+        if( !res.ok){
+            let data = await res.json();
+            return dispatch({type: FAILED, data: data.message})
+        }
+        dispatch({type: LOGOUT})
     }
 }

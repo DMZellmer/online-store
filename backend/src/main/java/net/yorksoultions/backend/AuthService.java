@@ -32,5 +32,9 @@ public class AuthService {
         this.tokenMap.put(token, user.id);
         return token;
     }
-
+    public void logout(UUID currentUser){
+        if(!tokenMap.containsKey(currentUser))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CURRENT USER DOES NOT EXIST");
+        tokenMap.remove(currentUser);
+    }
 }

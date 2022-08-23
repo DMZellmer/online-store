@@ -25,8 +25,8 @@ public class IndexController {
         }
 
     @GetMapping("/logout")
-    public void logout(){
-
+    public void logout(@RequestParam UUID currentUser){
+        this.service.logout(currentUser);
     }
     @GetMapping("/signup")
     public void signup(){
