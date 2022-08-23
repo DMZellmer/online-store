@@ -37,4 +37,11 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CURRENT USER DOES NOT EXIST");
         tokenMap.remove(currentUser);
     }
+    public void signup(String username, String password, Boolean isOwner) {
+        if(repo.existsByUsername(username)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "USER ALREADY EXISTS");
+        }
+        UserAccount newUser = new UserAccount(username, password, isOwner);
+        repo.save(newUser);
+    }
 }

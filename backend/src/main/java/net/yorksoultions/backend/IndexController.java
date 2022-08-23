@@ -29,8 +29,8 @@ public class IndexController {
         this.service.logout(currentUser);
     }
     @GetMapping("/signup")
-    public void signup(){
-
+    public void signup(@RequestParam String username, @RequestParam String password){
+        this.service.signup(username, password, false);
     }
 
 }

@@ -5,6 +5,7 @@ import {Button, Form, FormControl, FormGroup, FormLabel} from "react-bootstrap";
 import {useState} from "react";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
+import Signup from "./components/Signup";
 
 function App() {
     let currentUser = useSelector(state => state.currentUser);
@@ -18,10 +19,13 @@ function App() {
             </>
         );
     } else {
-        return <>
+        return (
+            <>
 
-            <Login></Login>
-        </>
+                <Login></Login>
+                <Signup></Signup>
+            </>
+        );
     }
 }
 
