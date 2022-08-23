@@ -8,6 +8,7 @@ import {useState} from "react";
 function App() {
     let dispatch = useDispatch();
     let currentUser = useSelector(state => state.currentUser);
+    let error = useSelector(state => state.error);
     let [username, setUsername] = useState("");
     let [password, setPassword] = useState("");
 
@@ -22,6 +23,7 @@ function App() {
 
     return (
         <>
+            {error && error}
             <Form onSubmit={handleSubmit}>
                 <FormGroup>
                     <FormLabel>Username</FormLabel>
