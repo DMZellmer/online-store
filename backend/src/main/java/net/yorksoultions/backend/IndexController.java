@@ -32,5 +32,9 @@ public class IndexController {
     public void signup(@RequestParam String username, @RequestParam String password){
         this.service.signup(username, password, false);
     }
+    @GetMapping("/createUser")
+    public void createUser(@RequestParam String username, @RequestParam String password, @RequestParam Boolean isOwner){
+        this.service.createUser(username, password, isOwner);
+    }
 
 }

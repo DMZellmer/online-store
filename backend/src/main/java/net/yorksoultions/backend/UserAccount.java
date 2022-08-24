@@ -19,6 +19,10 @@ public class UserAccount {
     String password;
     @JsonProperty
     Boolean isOwner;
+    @JsonProperty
+    String firstName;
+    @JsonProperty
+    String lastName;
 
     // Empty constructor for Springboot to "do it's thing"
     public UserAccount(){}
