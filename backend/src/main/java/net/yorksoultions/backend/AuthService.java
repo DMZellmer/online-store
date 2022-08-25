@@ -22,6 +22,13 @@ public class AuthService {
         this.repo = repo;
         this.tokenMap = new HashMap<>();
     }
+    public UUID checkAuth(UUID currentUser){
+        if (!tokenMap.containsKey(currentUser)){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        } else {
+            return tokenMap.get(currentUser);
+        }
+    }
 
     public UUID login(String username, String password) {
         Optional<UserAccount> maybeUser = this.repo.findByUsernameAndPassword(username, password);

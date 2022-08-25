@@ -11,6 +11,7 @@ import UserList from "./components/Users/UserList";
 
 function App() {
     let currentUser = useSelector(state => state.currentUser);
+    let owner = useSelector(state => state.isOwner);
 
     if (currentUser) {
         return (

@@ -13,28 +13,35 @@ import java.util.UUID;
 @CrossOrigin
 public class IndexController {
 
-    private final AuthService service;
+    private final AuthService authService;
+    private final ProductService productService;
     @Autowired
-    public IndexController(@NonNull AuthService service){
-        this.service = service;
+    public IndexController(@NonNull AuthService authService, @NonNull ProductService productService){
+        this.authService = authService;
+        this.productService = productService;
     }
 
     @GetMapping("/login")
     public UUID login(@RequestParam String username, @RequestParam String password) {
-            return this.service.login(username, password);
+            return this.authService.login(username, password);
         }
 
     @GetMapping("/logout")
     public void logout(@RequestParam UUID currentUser){
-        this.service.logout(currentUser);
+        this.authService.logout(currentUser);
     }
     @GetMapping("/signup")
     public void signup(@RequestParam String username, @RequestParam String password){
-        this.service.signup(username, password, false);
+        this.authService.signup(username, password, false);
     }
     @GetMapping("/createUser")
     public void createUser(@RequestParam String username, @RequestParam String password, @RequestParam Boolean isOwner){
-        this.service.createUser(username, password, isOwner);
+        this.authService.createUser(username, password, isOwner);
+    }
+    @GetMapping("/createProductList")
+    public void createProductList(@RequestParam UUID currentUser, String name, Double price){
+        UUID loggedUser = this.authService.checkAuth(currentUser);
+        this.productService.create(loggedUser, name, price);
     }
 
 }

@@ -1,6 +1,7 @@
 const initialState = {
     currentUser: null,
     error: null,
+    isOwner: false,
 }
 const FAILED = "FAILED";
 const LOGIN = "STORE_TOKEN";
