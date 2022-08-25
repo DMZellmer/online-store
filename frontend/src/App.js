@@ -10,13 +10,19 @@ import CreateUser from "./components/Users/CreateUser";
 import UserList from "./components/Users/UserList";
 import CreateProduct from "./components/Products/CreateProduct";
 
-function App() {
+export default function App() {
     let currentUser = useSelector(state => state.currentUser);
     let owner = useSelector(state => state.isOwner);
+    let error = useSelector(state => state.error);
+    let errorMessage = ""
+    if (error) {
+        errorMessage = <p>{error}</p>
+    }
 
     if (currentUser) {
         return (
             <>
+                {errorMessage}
                 <Row>
                     <p>You are now logged into The Store</p>
                     <Col md={2} className={""}>
@@ -48,5 +54,3 @@ function App() {
         );
     }
 }
-
-export default App;
