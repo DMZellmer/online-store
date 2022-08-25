@@ -8,6 +8,7 @@ const LOGIN = "STORE_TOKEN";
 const LOGOUT = "REMOVE_TOKEN";
 const SIGNUP = "SIGNUP";
 const CREATE_USER = "CREATE_USER";
+const STORE_PRODUCTS = "STORE_PRODUCTS";
 const STORE_USERS = "STORE_USERS";
 export const SHOW_USERS = "SHOW_USERS";
 
@@ -79,6 +80,18 @@ export function createUser(username, password, isOwner) {
         }
         // dispatch(getUserList())
     }
+}
+export function createProduct(name, price){
+        return async (dispatch, getState) => {
+            let currentUser = getState().currentUser
+            const res = await fetch(
+                `http://localhost:8080/createProductList?currentUser=${currentUser}&name=${name}&price=${price}`)
+            let data = await res.text()
+            if (!res.ok){
+                return dispatch({type: FAILED, data: data.message})
+            }
+            // dispatch(getList))
+        }
 }
 
 export function getUserList() {

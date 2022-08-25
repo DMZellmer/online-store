@@ -8,6 +8,7 @@ import Logout from "./components/Logout";
 import Signup from "./components/Signup";
 import CreateUser from "./components/Users/CreateUser";
 import UserList from "./components/Users/UserList";
+import CreateProduct from "./components/Products/CreateProduct";
 
 function App() {
     let currentUser = useSelector(state => state.currentUser);
@@ -19,14 +20,18 @@ function App() {
                 <Row>
                     <p>You are now logged into The Store</p>
                     <Col md={2} className={""}>
-                        <Logout/>
+                        <Logout/><br/><br/>
+                    </Col>
+                    <Col md={10}>
+                        <h3> Add Product to The Store</h3>
+                        <CreateProduct/>
                     </Col>
                 </Row><br/>
                 <Container>
                     <Row>
                         <Col>
-                            <h4> User List, Create a User</h4>
-                            <UserList></UserList>
+                            <h3> User List, Create a User</h3>
+                            {/*<UserList></UserList>*/}
                             <CreateUser></CreateUser>
                         </Col>
                     </Row>
