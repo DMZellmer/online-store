@@ -6,6 +6,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -22,13 +23,16 @@ public class ProductService {
         ProductList newProduct = new ProductList(owner, name, price);
         repo.save(newProduct);
     }
-    public void getList(){
-
+    public Iterable<ProductList> getProductList(){
+        return this.repo.findAll();
     }
-    public void edit(){
-
+    public void edit(ProductList productList){
+        this.repo.save(productList);
     }
-    public void delete(){
-
+    public void delete(Long id){
+        Optional<ProductList> list = this.repo.findById(id);
+        if (list.isEmpty())
+            throw new ResponseStatusException(HttpStatus.GONE, "Product does not exist");
+        this.repo.delete(list.get());
     }
 }

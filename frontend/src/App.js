@@ -1,4 +1,5 @@
 import './App.css';
+import "bootstrap/dist/css/bootstrap.css";
 import {useDispatch, useSelector} from "react-redux";
 import {getHello, login} from "./modules/reducer";
 import {Button, Col, Container, Form, FormControl, FormGroup, FormLabel, Row} from "react-bootstrap";
@@ -9,6 +10,7 @@ import Signup from "./components/Signup";
 import CreateUser from "./components/Users/CreateUser";
 import UserList from "./components/Users/UserList";
 import CreateProduct from "./components/Products/CreateProduct";
+import {ProductList} from "./components/Products/ProductList";
 
 export default function App() {
     let currentUser = useSelector(state => state.currentUser);
@@ -36,8 +38,9 @@ export default function App() {
                 <Container>
                     <Row>
                         <Col>
-                            <h3> User List, Create a User</h3>
-                            {/*<UserList></UserList>*/}
+                            <h3> User List, Product List, Create a User</h3>
+                            <UserList></UserList>
+                            <ProductList></ProductList>
                             <CreateUser></CreateUser>
                         </Col>
                     </Row>
@@ -47,7 +50,6 @@ export default function App() {
     } else {
         return (
             <>
-
                 <Login></Login>
                 <Signup></Signup>
             </>

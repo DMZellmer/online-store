@@ -59,4 +59,8 @@ public class AuthService {
         UserAccount newUser = new UserAccount(username, password, isOwner);
         repo.save(newUser);
     }
+    public Iterable <UserAccount> getUserList(){
+        return this.repo.findAll();
+    }
+
 }

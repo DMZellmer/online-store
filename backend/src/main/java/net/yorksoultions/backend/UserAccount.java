@@ -19,10 +19,6 @@ public class UserAccount {
     String password;
     @JsonProperty
     Boolean isOwner;
-    @JsonProperty
-    String firstName;
-    @JsonProperty
-    String lastName;
 
     // Empty constructor for Springboot to "do it's thing"
     public UserAccount(){}
@@ -35,7 +31,7 @@ public class UserAccount {
 
     @Override
     public String toString(){
-        return String.format("%b",
+        return String.format("%b", // specifies b=boolean type, e.g. %s=string, %i=integer, %f=float
                 this.isOwner);
     }
 }

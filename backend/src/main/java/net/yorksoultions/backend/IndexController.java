@@ -2,10 +2,7 @@ package net.yorksoultions.backend;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -38,10 +35,33 @@ public class IndexController {
     public void createUser(@RequestParam String username, @RequestParam String password, @RequestParam Boolean isOwner){
         this.authService.createUser(username, password, isOwner);
     }
-    @GetMapping("/createProductList")
-    public void createProductList(@RequestParam UUID currentUser, String name, Double price){
+    @GetMapping("/userList")
+    public Iterable<UserAccount> userList(){
+        return this.authService.getUserList();
+    }
+            
+    @GetMapping("/createProduct")
+    public void createProduct(
+            @RequestParam UUID currentUser,
+            @RequestParam String name,
+            @RequestParam Double price){
         UUID loggedUser = this.authService.checkAuth(currentUser);
+        System.out.println("backend working?");
         this.productService.create(loggedUser, name, price);
+    }
+    @GetMapping("/getProductList")
+    public Iterable<ProductList> productList(){
+       return this.productService.getProductList();
+    }
+    @PostMapping("/editProductList")
+    public void editProductList(@RequestParam UUID currentUser, @RequestParam ProductList productList){
+        this.authService.checkAuth(currentUser);
+        this.productService.edit(productList);
+    }
+    @DeleteMapping("/deleteProductList")
+    public void deleteProductList(@RequestParam UUID currentUser, @RequestParam Long id) {
+        this.authService.checkAuth(currentUser);
+        this.productService.delete(id);
     }
 
 }
