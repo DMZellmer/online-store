@@ -11,6 +11,7 @@ import CreateUser from "./components/Users/CreateUser";
 import UserList from "./components/Users/UserList";
 import CreateProduct from "./components/Products/CreateProduct";
 import {ProductList} from "./components/Products/ProductList";
+import {ProductDetails} from "./components/Products/ProductDetails";
 
 export default function App() {
     let currentUser = useSelector(state => state.currentUser);
@@ -38,13 +39,20 @@ export default function App() {
                 <Container>
                     <Row>
                         <Col>
-                            <h3> User List, Product List, Create a User</h3>
-                            <UserList></UserList>
+                            <h3> Product List</h3>
                             <ProductList></ProductList>
+                        </Col>
+                        <Col>
+                            <h3> User List</h3>
+                            <UserList></UserList>
+                        </Col>
+                        <Col>
+                            <h3> Create a User</h3>
                             <CreateUser></CreateUser>
                         </Col>
                     </Row>
                 </Container>
+                <ProductDetails/>
             </>
         );
     } else {

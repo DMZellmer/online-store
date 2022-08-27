@@ -47,7 +47,7 @@ export default function (state = initialState, action) {
             return {...state, userSelection: state.users.find(u => u.id == action.data)}
         }
         case SHOW_PRODUCTS: {
-            return {...state, prodSelection: state.products.find(p => p.id ==action.data)}
+            return {...state, prodSelection: state.products.find(p => p.id == action.data)}
         }
     }
     return state;
@@ -109,7 +109,7 @@ export function createProduct(name, price) {
         if (!res.ok) {
             return dispatch({type: FAILED, data: data.message})
         }
-        dispatch(getUserList())
+        dispatch(getProductList())
     }
 }
 
@@ -126,5 +126,45 @@ export function getProductList() {
         const res = await fetch("http://localhost:8080/getProductList")
         const data = await res.json();
         dispatch({type: STORE_PRODUCTS, data})
+    }
+}
+
+export function editProductList(name, price) {
+    return async (dispatch, getState) => {
+        let currentUser = getState().currentUser;
+        let prod = getState().prodSelection;
+        prod.name = name ? name : prod.name;
+        prod.price = price ? price : prod.price;
+        const res = await fetch(
+            `http://localhost:8080/editProductList?currentUser=${currentUser}`, {
+                method: "POST",
+                body: JSON.stringify(prod),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        )
+        if (!res.ok) {
+            const data = await res.json();
+            return dispatch ({type: FAILED, data: data.message})
+        }
+        dispatch(getProductList())
+    }
+}
+
+export function deleteProduct() {
+    return async (dispatch, getState) => {
+        let currentUser = getState().currentUser;
+        let prod = getState().prodSelection;
+        const res = await fetch(
+            `http://localhost:8080/deleteProductList?
+            currentUser=${currentUser}&id=${prod.id}`, {
+                method: "DELETE",
+            })
+        if (!res.ok) {
+            const data = await res.json();
+            return dispatch({type: FAILED, data: data.message})
+        }
+        dispatch(getProductList())
     }
 }
