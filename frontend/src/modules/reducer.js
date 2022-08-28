@@ -16,7 +16,7 @@ const STORE_PRODUCTS = "STORE_PRODUCTS";
 const STORE_USERS = "STORE_USERS";
 export const SHOW_USERS = "SHOW_USERS";
 export const SHOW_PRODUCTS = "SHOW_PRODUCTS";
-// export const CLEAR_SELECTION = "CLEAR_SELECTION";
+export const CLEAR_SELECTION = "CLEAR_SELECTION";
 // export const CLEAR_SELECTION2 = "CLEAR_SELECTION2";
 
 export default function (state = initialState, action) {
@@ -48,6 +48,9 @@ export default function (state = initialState, action) {
         }
         case SHOW_PRODUCTS: {
             return {...state, prodSelection: state.products.find(p => p.id == action.data)}
+        }
+        case CLEAR_SELECTION: {
+            return {...state, prodSelection: null}
         }
     }
     return state;
@@ -136,7 +139,7 @@ export function editProductList(name, price) {
         prod.name = name ? name : prod.name;
         prod.price = price ? price : prod.price;
         const res = await fetch(
-            `http://localhost:8080/editProductList?currentUser=${currentUser}`, {
+            `http://localhost:8080/editProductList?currentUser=${currentUser}`,{
                 method: "POST",
                 body: JSON.stringify(prod),
                 headers: {
@@ -146,6 +149,7 @@ export function editProductList(name, price) {
         )
         if (!res.ok) {
             const data = await res.json();
+            console.log(prod)
             return dispatch ({type: FAILED, data: data.message})
         }
         dispatch(getProductList())
@@ -157,8 +161,7 @@ export function deleteProduct() {
         let currentUser = getState().currentUser;
         let prod = getState().prodSelection;
         const res = await fetch(
-            `http://localhost:8080/deleteProductList?
-            currentUser=${currentUser}&id=${prod.id}`, {
+            `http://localhost:8080/deleteProductList?currentUser=${currentUser}&id=${prod.id}`,{
                 method: "DELETE",
             })
         if (!res.ok) {

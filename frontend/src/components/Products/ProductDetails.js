@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {deleteProduct} from "../../modules/reducer";
+import {CLEAR_SELECTION, deleteProduct, editProductList} from "../../modules/reducer";
 import {Button, Col, FormControl, Modal, ModalBody, ModalFooter, ModalHeader} from "react-bootstrap";
 
 export function ProductDetails() {
@@ -13,7 +13,7 @@ export function ProductDetails() {
     let [inventory, setInventory] = useState(product ? product.inventory : "")
 
     function onSubmit() {
-        dispatch(name, price, inventory)
+        dispatch(editProductList(name, price, inventory))
         onClose()
     }
 
@@ -22,6 +22,7 @@ export function ProductDetails() {
         setName("")
         setPrice("")
         setInventory("")
+        dispatch({type: CLEAR_SELECTION})
     }
 
     function onDelete() {
@@ -67,25 +68,25 @@ export function ProductDetails() {
                     </p>
                 </ModalBody>
                 <ModalFooter className={'d-flex justify-content-between'}>
-                    <Col sm={2}>
-                        <Button type={"button"} //disabled={isOwner}
-                                >Add Product</Button>
-                    </Col>
                     <Col sm={8}>
                         {editing ?
-                        <Button
-                            onClick={() => onSubmit()}
-                            >Submit </Button>
+                            <Button
+                                onClick={() => onSubmit()}
+                            >Submit</Button>
                             :
                             <Button type={"button"}
                                     onClick={e => setEditing(true)}
-                                    //disabled={!isOwner}
+                                //disabled={!isOwner}
                             >Edit</Button>}
                         <Button
                             variant={"danger"}
                             onClick={() => onDelete()}
                             // disabled={!isOwner}
-                            >Delete</Button>
+                        >Delete</Button>
+                        <Button
+                            variant={"dark"}
+                            onClick={() => onClose()}
+                        >Close</Button>
                     </Col>
                 </ModalFooter>
             </Modal>

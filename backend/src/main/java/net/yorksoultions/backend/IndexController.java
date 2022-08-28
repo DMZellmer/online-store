@@ -54,7 +54,7 @@ public class IndexController {
        return this.productService.getProductList();
     }
     @PostMapping("/editProductList")
-    public void editProductList(@RequestParam UUID currentUser, @RequestParam ProductList productList){
+    public void editProductList(@RequestParam UUID currentUser, @RequestBody ProductList productList){
         this.authService.checkAuth(currentUser);
         this.productService.edit(productList);
     }
