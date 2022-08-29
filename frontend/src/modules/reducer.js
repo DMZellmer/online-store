@@ -17,8 +17,7 @@ const STORE_USERS = "STORE_USERS";
 export const SHOW_USERS = "SHOW_USERS";
 export const SHOW_PRODUCTS = "SHOW_PRODUCTS";
 export const CLEAR_SELECTION = "CLEAR_SELECTION";
-export const CLEAR_USER_SELECTION = "CLEAR_USER_SELECTION"
-// export const CLEAR_SELECTION2 = "CLEAR_SELECTION2";
+export const CLEAR_USER_SELECTION = "CLEAR_USER_SELECTION";
 
 export default function (state = initialState, action) {
     state.error = null;

@@ -26,7 +26,7 @@ export function UserDetails() {
         <>
             <Modal show={!!user}>
                 <ModalHeader>
-                    <FormLabel>User: </FormLabel>
+                    <FormLabel>User:</FormLabel>
                     {" "}{user?.username}<br/>
                 </ModalHeader>
                 <ModalBody>
@@ -41,7 +41,7 @@ export function UserDetails() {
                         >Delete</Button>
                     <Button
                         variant={"outline-dark"}
-                        onClick={event => onClose()}
+                        onClick={() => onClose()}
                         >Close</Button>
                     </ButtonGroup>
                 </ModalFooter>
