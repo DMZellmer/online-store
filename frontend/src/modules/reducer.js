@@ -141,6 +141,7 @@ export function deleteUser() {
     return async (dispatch, getState) => {
         let currentUser = getState().currentUser;
         let user = getState().userSelection;
+        console.log(user)
         const res = await fetch(
             `http://localhost:8080/deleteUserList?currentUser=${currentUser}&id=${user.id}`,{
                 method: "DELETE",

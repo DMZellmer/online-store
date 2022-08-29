@@ -12,6 +12,7 @@ import java.util.UUID;
 public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty
     UUID id;
     @JsonProperty
     String username;
