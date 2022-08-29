@@ -12,6 +12,7 @@ import UserList from "./components/Users/UserList";
 import CreateProduct from "./components/Products/CreateProduct";
 import {ProductList} from "./components/Products/ProductList";
 import {ProductDetails} from "./components/Products/ProductDetails";
+import {UserDetails} from "./components/Users/UserDetails";
 
 export default function App() {
     let currentUser = useSelector(state => state.currentUser);
@@ -53,6 +54,7 @@ export default function App() {
                     </Row>
                 </Container>
                 <ProductDetails/>
+                <UserDetails/>
             </>
         );
     } else {

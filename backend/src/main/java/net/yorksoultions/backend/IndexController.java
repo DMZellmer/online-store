@@ -39,6 +39,16 @@ public class IndexController {
     public Iterable<UserAccount> userList(){
         return this.authService.getUserList();
     }
+    @PostMapping("/editUserList")
+    public void editUserList(@RequestParam UUID currentUser, @RequestBody UserAccount user){
+        this.authService.checkAuth(currentUser);
+        this.authService.edit(user);
+    }
+    @DeleteMapping("/deleteUserList")
+    public void deleteUserList(@RequestParam UUID currentUser, @RequestParam UUID id) {
+        this.authService.checkAuth(currentUser);
+        this.authService.deleteUser(id);
+    }
             
     @GetMapping("/createProduct")
     public void createProduct(

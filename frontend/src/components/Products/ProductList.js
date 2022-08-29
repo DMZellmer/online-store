@@ -11,9 +11,9 @@ export function ProductList() {
     }
     return (
         <ListGroup>
-            {prod?.map((prod, idx) => {
+            {prod?.map((prod, id) => {
                 return (
-                    <ListGroupItem key={idx} onClick={() => onClick(prod.id)}>
+                    <ListGroupItem key={id} onClick={() => onClick(prod.id)}>
                         <p>Product: {prod.name}</p>
                         <p>Price: ${prod.price}</p>
                     </ListGroupItem>

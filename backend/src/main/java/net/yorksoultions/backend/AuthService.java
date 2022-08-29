@@ -62,5 +62,14 @@ public class AuthService {
     public Iterable <UserAccount> getUserList(){
         return this.repo.findAll();
     }
+    public void edit(UserAccount user){
+        this.repo.save(user);
+    }
 
+    public void deleteUser(UUID id) {
+        Optional<UserAccount> list = this.repo.findById(id);
+        if (list.isEmpty())
+            throw new ResponseStatusException(HttpStatus.GONE, "User does not exist");
+        this.repo.delete(list.get());
+    }
 }

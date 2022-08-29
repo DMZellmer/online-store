@@ -17,6 +17,7 @@ const STORE_USERS = "STORE_USERS";
 export const SHOW_USERS = "SHOW_USERS";
 export const SHOW_PRODUCTS = "SHOW_PRODUCTS";
 export const CLEAR_SELECTION = "CLEAR_SELECTION";
+export const CLEAR_USER_SELECTION = "CLEAR_USER_SELECTION"
 // export const CLEAR_SELECTION2 = "CLEAR_SELECTION2";
 
 export default function (state = initialState, action) {
@@ -51,6 +52,9 @@ export default function (state = initialState, action) {
         }
         case CLEAR_SELECTION: {
             return {...state, prodSelection: null}
+        }
+        case CLEAR_USER_SELECTION: {
+            return {...state, userSelection: null}
         }
     }
     return state;
@@ -102,6 +106,52 @@ export function createUser(username, password, isOwner) {
     }
 }
 
+
+export function getUserList() {
+    return async (dispatch, getState) => {
+        const res = await fetch(`http://localhost:8080/userList`)
+        const data = await res.json();
+        dispatch({type: STORE_USERS, data})
+    }
+}
+export function edit(username, isOwner) {
+    return async (dispatch, getState) => {
+        let currentUser = getState().currentUser;
+        let user = getState().userSelection;
+        user.username = username ? username : user.name;
+        user.isOwner = isOwner ? isOwner : user.isOwner;
+        const res = await fetch(
+            `http://localhost:8080/editUserList?currentUser=${currentUser}`,{
+                method: "POST",
+                body: JSON.stringify(user),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        )
+        if (!res.ok) {
+            const data = await res.json();
+            console.log(user)
+            return dispatch ({type: FAILED, data: data.message})
+        }
+        dispatch(getUserList())
+    }
+}
+export function deleteUser() {
+    return async (dispatch, getState) => {
+        let currentUser = getState().currentUser;
+        let user = getState().userSelection;
+        const res = await fetch(
+            `http://localhost:8080/deleteUserList?currentUser=${currentUser}&id=${user.id}`,{
+                method: "DELETE",
+            })
+        if (!res.ok) {
+            const data = await res.json();
+            return dispatch({type: FAILED, data: data.message})
+        }
+        dispatch(getUserList())
+    }
+}
 export function createProduct(name, price) {
     return async (dispatch, getState) => {
         let currentUser = getState().currentUser
@@ -115,15 +165,6 @@ export function createProduct(name, price) {
         dispatch(getProductList())
     }
 }
-
-export function getUserList() {
-    return async (dispatch, getState) => {
-        const res = await fetch(`http://localhost:8080/userList`)
-        const data = await res.json();
-        dispatch({type: STORE_USERS, data})
-    }
-}
-
 export function getProductList() {
     return async (dispatch, getState) => {
         const res = await fetch("http://localhost:8080/getProductList")
@@ -131,7 +172,6 @@ export function getProductList() {
         dispatch({type: STORE_PRODUCTS, data})
     }
 }
-
 export function editProductList(name, price) {
     return async (dispatch, getState) => {
         let currentUser = getState().currentUser;
