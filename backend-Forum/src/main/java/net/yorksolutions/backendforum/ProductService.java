@@ -1,4 +1,4 @@
-package net.yorksoultions.backend;
+package net.yorksolutions.backendforum;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +17,11 @@ public class ProductService {
     private final ProductRepo repo;
     private RestTemplate restTemplate;
 
+    public Boolean checkAuth(UUID currentUser){
+        ResponseEntity<Void> response = this.restTemplate.getForEntity(authUrl + "/checkAuth", Void.class);
+        return response.getStatusCode() == HttpStatus.OK;
+    }
+
     @Value("${authUrl}")
     private String authUrl;
 
@@ -27,7 +32,6 @@ public class ProductService {
     }
 
         // Needed when splitting backend into two servers (Auth, Prod)
-
     public Boolean userIsOwner(String username, UUID currentUser){
         ResponseEntity<Boolean> response = this.restTemplate.getForEntity(authUrl + "/get-is-owner?username="+ username + "&currentUser=" + currentUser, Boolean.class);
         return response.getBody();

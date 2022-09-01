@@ -13,12 +13,10 @@ import java.util.UUID;
 public class IndexController {
 
     private final AuthService authService;
-    private final ProductService productService;
 
     @Autowired
-    public IndexController(@NonNull AuthService authService, @NonNull ProductService productService) {
+    public IndexController(@NonNull AuthService authService) {
         this.authService = authService;
-        this.productService = productService;
     }
 
     @GetMapping("/login")
@@ -60,38 +58,10 @@ public class IndexController {
         if (this.authService.userIsOwner(currentUser)) {
             this.authService.deleteUser(id);
         } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can delete users");
-
     }
 
-    @GetMapping("/createProduct")
-    public void createProduct(
-            @RequestParam UUID currentUser,
-            @RequestParam String name,
-            @RequestParam Double price) {
-        UUID loggedUser = this.authService.checkAuth(currentUser);
-        if (this.authService.userIsOwner(currentUser)) {
-            this.productService.create(loggedUser, name, price);
-        } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can add products");
-    }
-
-    @GetMapping("/getProductList")
-    public Iterable<ProductList> productList() {
-        return this.productService.getProductList();
-    }
-
-    @PostMapping("/editProductList")
-    public void editProductList(@RequestParam UUID currentUser, @RequestBody ProductList productList) {
+    @GetMapping("/checkAuth{currentUser") //@PathVariable lets you use {slugs} in the URL
+    public void checkAuth(@PathVariable UUID currentUser){
         this.authService.checkAuth(currentUser);
-        if (this.authService.userIsOwner((currentUser))) {
-            this.productService.edit(productList);
-        } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can edit products");
-    }
-
-    @DeleteMapping("/deleteProductList")
-    public void deleteProductList(@RequestParam UUID currentUser, @RequestParam Long id) {
-        this.authService.checkAuth(currentUser);
-        if (this.authService.userIsOwner(currentUser)) {
-            this.productService.delete(id);
-        } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can delete products");
     }
 }

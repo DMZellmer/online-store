@@ -24,7 +24,7 @@ public class AuthService {
     }
     public UUID checkAuth(UUID currentUser){
         if (!tokenMap.containsKey(currentUser)){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
         } else {
             return tokenMap.get(currentUser);
         }
