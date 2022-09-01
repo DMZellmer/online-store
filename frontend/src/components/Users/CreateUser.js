@@ -1,4 +1,4 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
 import {Button, Col, Form, FormControl, FormGroup, FormLabel, Modal, Row} from "react-bootstrap";
 import {createUser} from "../../modules/reducer";
@@ -7,8 +7,8 @@ export default ()=>{
     const dispatch = useDispatch();
     let [username, setUsername] = useState("");
     let [password, setPassword] = useState("");
-    let [isOwner, setIsOwner] = useState(false);
     let [shown, setShown] = useState(false);
+    let [isOwner, setIsOwner] = useState(false);
 
     function handleSubmit(event){
         event.preventDefault();

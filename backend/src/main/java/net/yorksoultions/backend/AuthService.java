@@ -29,6 +29,16 @@ public class AuthService {
             return tokenMap.get(currentUser);
         }
     }
+    public boolean userIsOwner(UUID currentUser){
+        Optional<UserAccount> user = this.repo.findById(this.tokenMap.get(currentUser));
+        if (user.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        if (user.get().isOwner && user.get().id.equals(this.tokenMap.get(currentUser))){
+            return true;
+        }
+        return false;
+    }
 
     public UUID login(String username, String password) {
         Optional<UserAccount> maybeUser = this.repo.findByUsernameAndPassword(username, password);

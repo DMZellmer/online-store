@@ -1,7 +1,6 @@
 import './App.css';
 import "bootstrap/dist/css/bootstrap.css";
 import {useDispatch, useSelector} from "react-redux";
-import {getHello, login} from "./modules/reducer";
 import {Button, Col, Container, Form, FormControl, FormGroup, FormLabel, Row} from "react-bootstrap";
 import {useState} from "react";
 import Login from "./components/Login";
@@ -22,14 +21,14 @@ export default function App() {
     if (error) {
         errorMessage = <p>{error}</p>
     }
-
     if (currentUser) {
         return (
             <>
                 {errorMessage}
                 <Row>
-                    <p>You are now logged into The Store</p>
+
                     <Col md={2} className={""}>
+                        <p>You are now logged into The Store</p>
                         <Logout/><br/><br/>
                     </Col>
                     <Col md={10}>
@@ -65,4 +64,49 @@ export default function App() {
             </>
         );
     }
+
+
+    // return (<>
+    //     {
+    //         currentUser ? (
+    //                 <>
+    //
+    //                     <Row>
+    //                         {errorMessage && errorMessage}
+    //                         <p>You are now logged into The Store</p>
+    //                         <Col md={2} className={""}>
+    //                             <Logout/><br/><br/>
+    //                         </Col>
+    //                         <Col md={10}>
+    //                             <h3> Add Product to The Store</h3>
+    //                             <CreateProduct/>
+    //                         </Col>
+    //                     </Row><br/>
+    //                     <Container>
+    //                         <Row>
+    //                             <Col>
+    //                                 <h3> Product List</h3>
+    //                                 <ProductList></ProductList>
+    //                             </Col>
+    //                             <Col>
+    //                                 <h3> User List</h3>
+    //                                 <UserList></UserList>
+    //                             </Col>
+    //                             <Col>
+    //                                 <h3> Create a User</h3>
+    //                                 <CreateUser></CreateUser>
+    //                             </Col>
+    //                         </Row>
+    //                     </Container>
+    //                     <ProductDetails/>
+    //                     <UserDetails/>
+    //                 </>
+    //             )
+    //             :
+    //             <>
+    //                 <Login></Login>
+    //                 <Signup></Signup>
+    //             </>
+    //     }
+    // </>)
 }

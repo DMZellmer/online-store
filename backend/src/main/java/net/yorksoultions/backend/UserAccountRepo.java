@@ -10,6 +10,8 @@ import java.util.UUID;
 @Repository
 public interface UserAccountRepo extends CrudRepository <UserAccount, UUID> {
     Optional<UserAccount> findByUsernameAndPassword(String username, String password);
+    Optional<UserAccount> findById(UUID id);
 
     boolean existsByUsername(String username);
+
 }

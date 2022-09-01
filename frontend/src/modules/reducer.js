@@ -140,7 +140,6 @@ export function deleteUser() {
     return async (dispatch, getState) => {
         let currentUser = getState().currentUser;
         let user = getState().userSelection;
-        console.log(user)
         const res = await fetch(
             `http://localhost:8080/deleteUserList?currentUser=${currentUser}&id=${user.id}`,{
                 method: "DELETE",
@@ -157,7 +156,7 @@ export function createProduct(name, price) {
         let currentUser = getState().currentUser
         const res = await fetch(
             `http://localhost:8080/createProduct?currentUser=${currentUser}&name=${name}&price=${price}`)
-        let data = await res.text()
+        let data = await res.json()
 
         if (!res.ok) {
             return dispatch({type: FAILED, data: data.message})
@@ -166,7 +165,7 @@ export function createProduct(name, price) {
     }
 }
 export function getProductList() {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         const res = await fetch("http://localhost:8080/getProductList")
         const data = await res.json();
         dispatch({type: STORE_PRODUCTS, data})
