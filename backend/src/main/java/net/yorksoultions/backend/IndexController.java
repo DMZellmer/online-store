@@ -61,13 +61,13 @@ public class IndexController {
         } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can delete users");
     }
 
-    @GetMapping("/checkAuth{currentUser}") //@PathVariable lets you use {slugs} in the URL
+    @GetMapping("/checkAuth/{currentUser}") //@PathVariable lets you use {slugs} in the URL
     public ResponseEntity<Void> checkAuth(@PathVariable UUID currentUser){
         return this.authService.checkAuth(currentUser);
     }
 
-    @GetMapping("/userInfo")
-    public UserAccount userInfo(){
-
+    @GetMapping("/userInfo/{currentUser}")
+    public UserAccount userInfo(@PathVariable UUID currentUser){
+        return this.authService.userInfo(currentUser);
     }
 }

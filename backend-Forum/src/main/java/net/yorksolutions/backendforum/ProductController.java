@@ -23,6 +23,10 @@ public class ProductController {
         return "Testing";
     }
 
+    public void getUserInfo(){
+
+    }
+
     @GetMapping("/createProduct")
     public void createProduct(
             @RequestParam UUID currentUser,

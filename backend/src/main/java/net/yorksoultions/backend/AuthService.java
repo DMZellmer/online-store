@@ -88,4 +88,13 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.GONE, "User does not exist");
         this.repo.delete(list.get());
     }
+
+    public UserAccount userInfo(UUID currentUser) {
+        UUID loggedUser = this.tokenMap.get(currentUser);
+        Optional<UserAccount> maybeUser = repo.findById(loggedUser);
+        if (maybeUser.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.GONE);
+        }
+        return maybeUser.get();
+    }
 }
