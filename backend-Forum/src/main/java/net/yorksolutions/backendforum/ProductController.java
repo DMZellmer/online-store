@@ -23,10 +23,6 @@ public class ProductController {
         return "Testing";
     }
 
-    public void getUserInfo(UUID currentUser){
-
-    }
-
     @GetMapping("/createProduct")
     public void createProduct(
             @RequestParam UUID currentUser,
@@ -53,11 +49,11 @@ public class ProductController {
         } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can edit products");
     }
 
-//    @DeleteMapping("/deleteProductList")
-//    public void deleteProductList(@RequestParam UUID currentUser, @RequestParam Long id) {
-//        this.authService.checkAuth(currentUser);
-//        if (this.authService.userIsOwner(currentUser)) {
-//            this.productService.delete(id);
-//        } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can delete products");
-//    }
+    @DeleteMapping("/deleteProductList")
+    public void deleteProductList(@RequestParam UUID currentUser, @RequestParam Long id) {
+        this.productService.checkAuth(currentUser);
+        if (this.productService.userIsOwner(currentUser)) {
+            this.productService.delete(id);
+        } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can delete products");
+    }
 }

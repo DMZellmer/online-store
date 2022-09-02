@@ -26,6 +26,7 @@ public class ProductService {
         this.restTemplate = new RestTemplate();
     }
 
+    //  user auth and user info region
     public Boolean checkAuth(UUID currentUser) {
         try {
             ResponseEntity<Void> response = this.restTemplate.getForEntity(authUrl + "/checkAuth/" + currentUser, Void.class);
@@ -39,24 +40,13 @@ public class ProductService {
         return response.getBody();
     }
 
-    //Brett code from ProductService
-//    public Boolean userIsOwner(String username, UUID token) {
-//        ResponseEntity<Boolean> response = this.restTemplate.getForEntity(authUrl + "/get-is-owner?username=" + username + "&token=" + token, Boolean.class);
-//        return response.getBody();
-//    }
-
     public UserModel getUserInfo(UUID currentUser){
         ResponseEntity<UserModel> response = this.restTemplate.getForEntity(authUrl + "/userInfo/" + currentUser, UserModel.class);
         return response.getBody();
     }
+    // end user auth/info region
 
-
-    // Needed when splitting backend into two servers (Auth, Prod)
-    public Boolean userIsOwner(String username, UUID currentUser) {
-        ResponseEntity<Boolean> response = this.restTemplate.getForEntity(authUrl + "/get-is-owner?username=" + username + "&currentUser=" + currentUser, Boolean.class);
-        return response.getBody();
-    }
-
+    // product region
     public void create(UUID owner, String name, Double price) {
         if (repo.existsByName(name))
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Product with this name already exists");
