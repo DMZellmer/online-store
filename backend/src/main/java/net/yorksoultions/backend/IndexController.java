@@ -2,6 +2,7 @@ package net.yorksoultions.backend;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -60,8 +61,13 @@ public class IndexController {
         } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can delete users");
     }
 
-    @GetMapping("/checkAuth{currentUser") //@PathVariable lets you use {slugs} in the URL
-    public void checkAuth(@PathVariable UUID currentUser){
-        this.authService.checkAuth(currentUser);
+    @GetMapping("/checkAuth{currentUser}") //@PathVariable lets you use {slugs} in the URL
+    public ResponseEntity<Void> checkAuth(@PathVariable UUID currentUser){
+        return this.authService.checkAuth(currentUser);
+    }
+
+    @GetMapping("/userInfo")
+    public UserAccount userInfo(){
+
     }
 }
