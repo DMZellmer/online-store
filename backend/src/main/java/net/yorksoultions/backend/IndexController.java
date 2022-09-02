@@ -70,4 +70,10 @@ public class IndexController {
     public UserAccount userInfo(@PathVariable UUID currentUser){
         return this.authService.userInfo(currentUser);
     }
+
+
+    @GetMapping("/getIsOwner/")
+    public Boolean getIsOwner(@RequestParam UUID currentUser){
+        return this.authService.userIsOwner(currentUser);
+    }
 }

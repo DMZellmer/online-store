@@ -39,20 +39,20 @@ public class ProductController {
 
         } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can add products");
     }
-//
-//    @GetMapping("/getProductList")
-//    public Iterable<ProductList> productList() {
-//        return this.productService.getProductList();
-//    }
-//
-//    @PostMapping("/editProductList")
-//    public void editProductList(@RequestParam UUID currentUser, @RequestBody ProductList productList) {
-//        this.authService.checkAuth(currentUser);
-//        if (this.authService.userIsOwner((currentUser))) {
-//            this.productService.edit(productList);
-//        } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can edit products");
-//    }
-//
+
+    @GetMapping("/getProductList")
+    public Iterable<ProductList> productList() {
+        return this.productService.getProductList();
+    }
+
+    @PostMapping("/editProductList")
+    public void editProductList(@RequestParam UUID currentUser, @RequestBody ProductList productList) {
+        this.productService.checkAuth(currentUser);
+        if (this.productService.userIsOwner((currentUser))) {
+            this.productService.edit(productList);
+        } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can edit products");
+    }
+
 //    @DeleteMapping("/deleteProductList")
 //    public void deleteProductList(@RequestParam UUID currentUser, @RequestParam Long id) {
 //        this.authService.checkAuth(currentUser);
