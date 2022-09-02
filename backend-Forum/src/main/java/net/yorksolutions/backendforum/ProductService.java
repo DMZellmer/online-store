@@ -1,5 +1,6 @@
 package net.yorksolutions.backendforum;
 
+import net.yorksolutions.backendforum.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -22,12 +23,16 @@ public class ProductService {
 
     public Boolean checkAuth(UUID currentUser) {
         try {
-            ResponseEntity<Void> response = this.restTemplate.getForEntity(authUrl + "/checkAuth" + currentUser, Void.class);
+            ResponseEntity<Void> response = this.restTemplate.getForEntity(authUrl + "/checkAuth/" + currentUser, Void.class);
             return true;
         } catch (RestClientException e) {
             return false;
         }
-//        return response.getStatusCode() == HttpStatus.OK;
+    }
+
+    public UserModel getUserInfo(UUID currentUser){
+        ResponseEntity<UserModel> response = this.restTemplate.getForEntity(authUrl + "/userInfo/" + currentUser, UserModel.class);
+        return response.getBody();
     }
 
     @Autowired

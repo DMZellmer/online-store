@@ -23,7 +23,7 @@ public class ProductController {
         return "Testing";
     }
 
-    public void getUserInfo(){
+    public void getUserInfo(UUID currentUser){
 
     }
 
@@ -34,6 +34,7 @@ public class ProductController {
             @RequestParam Double price) {
         this.productService.checkAuth(currentUser);
         if (this.productService.checkAuth(currentUser)) {
+            UUID loggedUser = this.productService.getUserInfo(currentUser).id;
             this.productService.create(loggedUser, name, price);
 
         } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Only owners can add products");
