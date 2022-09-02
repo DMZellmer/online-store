@@ -35,7 +35,7 @@ public class ProductService {
         }
     }
     public Boolean userIsOwner(UUID currentUser){
-        ResponseEntity<Boolean> response = this.restTemplate.getForEntity(authUrl + "/getIsOwner/" + currentUser, Boolean.class);
+        ResponseEntity<Boolean> response = this.restTemplate.getForEntity(authUrl + "/getIsOwner/" + "&currentUser=" + currentUser, Boolean.class);
         return response.getBody();
     }
 
