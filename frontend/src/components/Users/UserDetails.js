@@ -1,6 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {CLEAR_USER_SELECTION, deleteUser} from "../../modules/reducer";
+import {CLEAR_USER_SELECTION} from "../../modules/reducer";
+import {deleteUser} from "../../modules/requests";
 import {Button, ButtonGroup, FormLabel, Modal, ModalBody, ModalFooter, ModalHeader} from "react-bootstrap";
 
 export function UserDetails() {

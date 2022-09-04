@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Button, Form, FormControl, FormGroup, FormLabel} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {signup} from "../modules/reducer";
+import {signup} from "../modules/requests";
 
 export default ()=>{
     const isOwner = useSelector(state => state.isOwner)

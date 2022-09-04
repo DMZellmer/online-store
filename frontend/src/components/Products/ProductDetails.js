@@ -1,6 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {CLEAR_SELECTION, deleteProduct, editProductList} from "../../modules/reducer";
+import {CLEAR_SELECTION} from "../../modules/reducer";
+import {deleteProduct, editProductList} from "../../modules/requests"
 import {Button, Col, FormControl, Modal, ModalBody, ModalFooter, ModalHeader} from "react-bootstrap";
 
 export function ProductDetails() {

@@ -24,7 +24,7 @@ export default function App() {
     if (currentUser) {
         return (
             <>
-                {errorMessage}
+                {errorMessage && errorMessage}
                 <Row>
 
                     <Col md={2} className={""}>

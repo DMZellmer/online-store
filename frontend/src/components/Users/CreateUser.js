@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
 import {Button, Col, Form, FormControl, FormGroup, FormLabel, Modal, Row} from "react-bootstrap";
-import {createUser} from "../../modules/reducer";
+import {createUser} from "../../modules/requests";
 
 export default ()=>{
     const dispatch = useDispatch();

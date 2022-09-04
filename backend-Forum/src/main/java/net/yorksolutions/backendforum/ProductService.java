@@ -18,8 +18,8 @@ import java.util.UUID;
 public class ProductService {
     private final ProductRepo repo;
     private RestTemplate restTemplate;
-
-    private final String authUrl = "http://localhost:8080";
+    @Value("${authUrl}")
+    private String authUrl;
     @Autowired
     public ProductService(@NonNull ProductRepo repo) {
         this.repo = repo;

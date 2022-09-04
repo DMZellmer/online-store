@@ -1,4 +1,4 @@
-import {login} from "../modules/reducer";
+import {login} from "../modules/requests";
 import {Button, Form, FormControl, FormGroup, FormLabel} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
