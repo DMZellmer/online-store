@@ -36,7 +36,10 @@ public class IndexController {
     }
 
     @GetMapping("/createUser")
-    public void createUser(@RequestParam String username, @RequestParam String password, @RequestParam Boolean isOwner) {
+    public void createUser(
+            @RequestParam String username,
+            @RequestParam String password,
+            @RequestParam Boolean isOwner) {
         this.authService.createUser(username, password, isOwner);
     }
 

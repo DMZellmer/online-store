@@ -45,6 +45,7 @@ export function ProductDetails() {
                             </FormControl>
                             : product?.name
                         }</h5>
+
                     <p> Inventory: {" "}{editing ?
                         <FormControl
                             type={"number"}
@@ -55,6 +56,7 @@ export function ProductDetails() {
                         : product?.inventory
                     }</p>
                 </ModalHeader>
+
                 <ModalBody>
                     <p> Price: ${" "}{
                         editing ?
@@ -68,6 +70,7 @@ export function ProductDetails() {
                     }
                     </p>
                 </ModalBody>
+
                 <ModalFooter className={'d-flex justify-content-between'}>
                     <Col sm={8}>
                         {editing ?

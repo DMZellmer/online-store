@@ -60,7 +60,8 @@ export default function App() {
         return (
             <>
                 <Login></Login>
-                <Signup></Signup>
+                <Signup></Signup><br/><br/>
+                <ProductList></ProductList>
             </>
         );
     }

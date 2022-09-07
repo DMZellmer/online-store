@@ -5,7 +5,7 @@ export function createProduct(name, price) {
     return async (dispatch, getState) => {
         let currentUser = getState().currentUser
         const res = await fetch(
-            `http://localhost:8083/createProduct?currentUser=${currentUser}&name=${name}&price=${price}`)
+            {baseUrl}`/createProduct?currentUser=${currentUser}&name=${name}&price=${price}`)
         let data = await res.json()
 
         if (!res.ok) {

@@ -29,19 +29,19 @@ public class ProductService {
     //  user auth and user info region
     public Boolean checkAuth(UUID currentUser) {
         try {
-            ResponseEntity<Void> response = this.restTemplate.getForEntity(authUrl + "/checkAuth/" + currentUser, Void.class);
+            ResponseEntity<Void> response = this.restTemplate.getForEntity(authUrl + "/checkAuth" + currentUser, Void.class);
             return true;
         } catch (RestClientException e) {
             return false;
         }
     }
     public Boolean userIsOwner(UUID currentUser){
-        ResponseEntity<Boolean> response = this.restTemplate.getForEntity(authUrl + "/getIsOwner/" + "&currentUser=" + currentUser, Boolean.class);
+        ResponseEntity<Boolean> response = this.restTemplate.getForEntity(authUrl + "/getIsOwner" + "&currentUser=" + currentUser, Boolean.class);
         return response.getBody();
     }
 
     public UserModel getUserInfo(UUID currentUser){
-        ResponseEntity<UserModel> response = this.restTemplate.getForEntity(authUrl + "/userInfo/" + currentUser, UserModel.class);
+        ResponseEntity<UserModel> response = this.restTemplate.getForEntity(authUrl + "/userInfo" + "&currentUser=" + currentUser, UserModel.class);
         return response.getBody();
     }
     // end user auth/info region
